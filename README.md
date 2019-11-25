@@ -1,6 +1,6 @@
 <img width=260 src=logo.svg>
 
-[![Build Status](https://travis-ci.org/mottosso/Qt.py.svg?branch=master)](https://travis-ci.org/mottosso/Qt.py) [![PyPI version](https://badge.fury.io/py/Qt.py.svg)](https://pypi.python.org/pypi/Qt.py)
+[![Downloads](https://pepy.tech/badge/qt-py)](https://pepy.tech/project/qt-py) [![Build Status](https://travis-ci.org/mottosso/Qt.py.svg?branch=master)](https://travis-ci.org/mottosso/Qt.py) [![PyPI version](https://badge.fury.io/py/Qt.py.svg)](https://pypi.python.org/pypi/Qt.py)
 [![Anaconda-Server Badge](https://anaconda.org/conda-forge/qt.py/badges/version.svg)](https://anaconda.org/conda-forge/qt.py) [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/Qt-py/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![Reviewed by Hound](https://img.shields.io/badge/Reviewed_by-Hound-8E64B0.svg)](https://houndci.com)
 
@@ -12,6 +12,7 @@ Qt.py enables you to write software that runs on any of the 4 supported bindings
 
 | Date     | Version   | Event
 |:---------|:----------|:----------
+| Jun 2019 | [1.2.1][] | Bugfixes and [additional members](https://github.com/mottosso/Qt.py/releases/tag/1.2.0)
 | Jan 2018 | [1.1.0][] | Adds new test suite, new members
 | Mar 2017 | [1.0.0][] | Increased safety, **backwards incompatible**
 | Sep 2016 | [0.6.9][] | Stable release
@@ -25,6 +26,7 @@ Qt.py enables you to write software that runs on any of the 4 supported bindings
 [0.6.9]: https://github.com/mottosso/Qt.py/releases/tag/0.6.9
 [1.0.0]: https://github.com/mottosso/Qt.py/releases/tag/1.0.0
 [1.1.0]: https://github.com/mottosso/Qt.py/releases/tag/1.1.0
+[1.2.1]: https://github.com/mottosso/Qt.py/releases/tag/1.2.1
 
 ##### Guides
 
@@ -391,6 +393,7 @@ Send us a pull-request with your studio here.
 - [Colorbleed](http://www.colorbleed.nl/)
 - [Digital Domain](https://www.digitaldomain.com/)
 - [Disney Animation](https://www.disneyanimation.com/)
+- [Dreamworks Animation](https://github.com/dreamworksanimation)
 - [Epic Games](https://www.epicgames.com/)
 - [Fido](http://fido.se/)
 - [Framestore](https://framestore.com)
@@ -424,6 +427,7 @@ Presented at Siggraph 2016, BOF!
 
 Send us a pull-request with your project here.
 
+- [USD Manager](http://www.usdmanager.org)
 - [Cosmos](http://cosmos.toolsfrom.space/)
 - [maya-capture-gui](https://github.com/BigRoy/maya-capture-gui)
 - [pyblish-lite](https://github.com/pyblish/pyblish-lite)
