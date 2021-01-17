@@ -13,4 +13,4 @@ prjs = [
 
 excons.DeclareTargets(env, prjs)
 
-excons.EcosystemDist(env, "Qute.env", {"Qute": ""}, version="1.2.3")
+excons.EcosystemDist(env, "Qute.env", {"Qute": ""}, version="1.2.4")
