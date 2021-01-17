@@ -8,6 +8,7 @@ import tempfile
 import subprocess
 import contextlib
 import datetime
+import json
 
 # Third-party dependency
 import six
@@ -550,6 +551,10 @@ def test_vendoring():
     shutil.copy(os.path.join(os.path.dirname(__file__), "Qt.py"),
                 os.path.join(vendor, "Qt.py"))
 
+    # Copy real Qt.py into the root folder
+    shutil.copy(os.path.join(os.path.dirname(__file__), "Qt.py"),
+                os.path.join(self.tempdir, "Qt.py"))
+
     print("Testing relative import..")
     assert subprocess.call(
         [sys.executable, "-c", "import myproject"],
@@ -572,6 +577,77 @@ def test_vendoring():
         cwd=self.tempdir,
         stdout=subprocess.PIPE,
         stderr=subprocess.STDOUT,
+    ) == 0
+
+    #
+    # Test invalid json data
+    #
+    env = os.environ.copy()
+    env["QT_PREFERRED_BINDING_JSON"] = '{"Qt":["PyQt5","PyQt4"],}'
+
+    cmd = "import myproject.vendor.Qt;"
+    cmd += "import Qt;"
+    cmd += "assert myproject.vendor.Qt.__binding__ != 'None', 'vendor';"
+    cmd += "assert Qt.__binding__ != 'None', 'Qt';"
+
+    popen = subprocess.Popen(
+        [sys.executable, "-c", cmd],
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        cwd=self.tempdir,
+        env=env
+    )
+
+    out, err = popen.communicate()
+
+    if popen.returncode != 0:
+        print(out)
+        msg = "An exception was raised"
+        assert popen.returncode == 0, msg
+
+    error_check = b"Qt.py [warning]:"
+    assert err.startswith(error_check), err
+
+    print('out------------------')
+    print(out)
+
+    print('err ------------------')
+    print(err)
+
+    # Check QT_PREFERRED_BINDING_JSON works as expected
+    print("Testing QT_PREFERRED_BINDING_JSON is respected..")
+    cmd = "import myproject.vendor.Qt;"
+    # Check that the "None" binding was set for `import myproject.vendor.Qt`
+    cmd += "assert myproject.vendor.Qt.__binding__ == 'None', 'vendor';"
+    cmd += "import Qt;"
+    # Check that the "None" binding was not set for `import Qt`.
+    # This should be PyQt5 or PyQt4 depending on the test environment.
+    cmd += "assert Qt.__binding__ != 'None', 'Qt'"
+
+    # If the module name is "Qt" use PyQt5 or PyQt4, otherwise use None binding
+    env = os.environ.copy()
+    env["QT_PREFERRED_BINDING_JSON"] = json.dumps(
+        {
+            "Qt": ["PyQt5", "PyQt4"],
+            "default": ["None"]
+        }
+    )
+
+    assert subprocess.call(
+        [sys.executable, "-c", cmd],
+        stdout=subprocess.PIPE,
+        cwd=self.tempdir,
+        env=env
+    ) == 0
+
+    print("Testing QT_PREFERRED_BINDING_JSON and QT_PREFERRED_BINDING work..")
+    env["QT_PREFERRED_BINDING_JSON"] = '{"Qt":["PyQt5","PyQt4"]}'
+    env["QT_PREFERRED_BINDING"] = "None"
+    assert subprocess.call(
+        [sys.executable, "-c", cmd],
+        stdout=subprocess.PIPE,
+        cwd=self.tempdir,
+        env=env
     ) == 0
 
 
